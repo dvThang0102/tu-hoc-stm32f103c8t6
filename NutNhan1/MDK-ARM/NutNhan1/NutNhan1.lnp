@@ -1,0 +1,23 @@
+--cpu Cortex-M3
+"nutnhan1\startup_stm32f103xb.o"
+"nutnhan1\main.o"
+"nutnhan1\stm32f1xx_it.o"
+"nutnhan1\stm32f1xx_hal_msp.o"
+"nutnhan1\stm32f1xx_hal_gpio_ex.o"
+"nutnhan1\stm32f1xx_hal_tim.o"
+"nutnhan1\stm32f1xx_hal_tim_ex.o"
+"nutnhan1\stm32f1xx_hal.o"
+"nutnhan1\stm32f1xx_hal_rcc.o"
+"nutnhan1\stm32f1xx_hal_rcc_ex.o"
+"nutnhan1\stm32f1xx_hal_gpio.o"
+"nutnhan1\stm32f1xx_hal_dma.o"
+"nutnhan1\stm32f1xx_hal_cortex.o"
+"nutnhan1\stm32f1xx_hal_pwr.o"
+"nutnhan1\stm32f1xx_hal_flash.o"
+"nutnhan1\stm32f1xx_hal_flash_ex.o"
+"nutnhan1\stm32f1xx_hal_exti.o"
+"nutnhan1\system_stm32f1xx.o"
+--library_type=microlib --strict --scatter "NutNhan1\NutNhan1.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "NutNhan1.map" -o NutNhan1\NutNhan1.axf
