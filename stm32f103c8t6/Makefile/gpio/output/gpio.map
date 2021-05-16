@@ -1,0 +1,229 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x20000000         0x00005000         xrw
+FLASH            0x08000000         0x00010000         xr
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x20005000                _estack = 0x20005000
+                0x00000200                _Min_Heap_Size = 0x200
+                0x00000400                _Min_Stack_Size = 0x400
+
+.isr_vector     0x08000000      0x10c
+                0x08000000                . = ALIGN (0x4)
+ *(.isr_vector)
+ .isr_vector    0x08000000      0x10c ./output/startup_stm32f103xb.o
+                0x08000000                g_pfnVectors
+                0x0800010c                . = ALIGN (0x4)
+
+.text           0x0800010c      0x194
+                0x0800010c                . = ALIGN (0x4)
+ *(.text)
+ .text          0x0800010c      0x13c ./output/main.o
+                0x0800010c                Reserved_IRQHandler
+                0x08000112                NMI_Handler
+                0x08000118                HardFault_Handler
+                0x0800011e                SVC_Handler
+                0x08000124                PendSV_Handler
+                0x0800012a                SysTick_Handler
+                0x08000130                enable_clk
+                0x0800015c                gpio_init
+                0x08000194                delay
+                0x080001d4                led_on
+                0x080001fc                led_off
+                0x08000220                main
+ .text          0x08000248       0x14 ./output/startup_stm32f103xb.o
+ *(.text*)
+ .text.Reset_Handler
+                0x0800025c       0x40 ./output/startup_stm32f103xb.o
+                0x0800025c                Reset_Handler
+ .text.Default_Handler
+                0x0800029c        0x2 ./output/startup_stm32f103xb.o
+                0x0800029c                RTC_Alarm_IRQHandler
+                0x0800029c                EXTI2_IRQHandler
+                0x0800029c                DebugMon_Handler
+                0x0800029c                TIM1_CC_IRQHandler
+                0x0800029c                PVD_IRQHandler
+                0x0800029c                EXTI3_IRQHandler
+                0x0800029c                EXTI0_IRQHandler
+                0x0800029c                I2C2_EV_IRQHandler
+                0x0800029c                UsageFault_Handler
+                0x0800029c                ADC1_2_IRQHandler
+                0x0800029c                SPI1_IRQHandler
+                0x0800029c                TAMPER_IRQHandler
+                0x0800029c                DMA1_Channel4_IRQHandler
+                0x0800029c                USART3_IRQHandler
+                0x0800029c                RTC_IRQHandler
+                0x0800029c                DMA1_Channel7_IRQHandler
+                0x0800029c                CAN1_RX1_IRQHandler
+                0x0800029c                TIM4_IRQHandler
+                0x0800029c                I2C1_EV_IRQHandler
+                0x0800029c                DMA1_Channel6_IRQHandler
+                0x0800029c                TIM3_IRQHandler
+                0x0800029c                RCC_IRQHandler
+                0x0800029c                TIM1_TRG_COM_IRQHandler
+                0x0800029c                DMA1_Channel1_IRQHandler
+                0x0800029c                Default_Handler
+                0x0800029c                EXTI15_10_IRQHandler
+                0x0800029c                EXTI9_5_IRQHandler
+                0x0800029c                SPI2_IRQHandler
+                0x0800029c                MemManage_Handler
+                0x0800029c                DMA1_Channel5_IRQHandler
+                0x0800029c                EXTI4_IRQHandler
+                0x0800029c                USB_LP_CAN1_RX0_IRQHandler
+                0x0800029c                USB_HP_CAN1_TX_IRQHandler
+                0x0800029c                DMA1_Channel3_IRQHandler
+                0x0800029c                TIM1_UP_IRQHandler
+                0x0800029c                WWDG_IRQHandler
+                0x0800029c                TIM2_IRQHandler
+                0x0800029c                TIM1_BRK_IRQHandler
+                0x0800029c                EXTI1_IRQHandler
+                0x0800029c                USART2_IRQHandler
+                0x0800029c                I2C2_ER_IRQHandler
+                0x0800029c                DMA1_Channel2_IRQHandler
+                0x0800029c                CAN1_SCE_IRQHandler
+                0x0800029c                FLASH_IRQHandler
+                0x0800029c                BusFault_Handler
+                0x0800029c                USART1_IRQHandler
+                0x0800029c                I2C1_ER_IRQHandler
+                0x0800029c                USBWakeUp_IRQHandler
+ *(.glue_7)
+ .glue_7        0x0800029e        0x0 linker stubs
+ *(.glue_7t)
+ .glue_7t       0x0800029e        0x0 linker stubs
+ *(.eh_frame)
+ *(.init)
+ *(.fini)
+                0x080002a0                . = ALIGN (0x4)
+ *fill*         0x0800029e        0x2 
+                0x080002a0                _etext = .
+
+.vfp11_veneer   0x080002a0        0x0
+ .vfp11_veneer  0x080002a0        0x0 linker stubs
+
+.v4_bx          0x080002a0        0x0
+ .v4_bx         0x080002a0        0x0 linker stubs
+
+.iplt           0x080002a0        0x0
+ .iplt          0x080002a0        0x0 ./output/main.o
+
+.rel.dyn        0x080002a0        0x0
+ .rel.iplt      0x080002a0        0x0 ./output/main.o
+
+.rodata         0x080002a0        0x0
+                0x080002a0                . = ALIGN (0x4)
+ *(.rodata)
+ *(.rodata*)
+                0x080002a0                . = ALIGN (0x4)
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+
+.ARM            0x080002a0        0x0
+                0x080002a0                __exidx_start = .
+ *(.ARM.exidx*)
+                0x080002a0                __exidx_end = .
+
+.preinit_array  0x080002a0        0x0
+                [!provide]                PROVIDE (__preinit_array_start = .)
+ *(.preinit_array*)
+                [!provide]                PROVIDE (__preinit_array_end = .)
+
+.init_array     0x080002a0        0x0
+                [!provide]                PROVIDE (__init_array_start = .)
+ *(SORT_BY_NAME(.init_array.*))
+ *(.init_array*)
+                [!provide]                PROVIDE (__init_array_end = .)
+
+.fini_array     0x080002a0        0x0
+                [!provide]                PROVIDE (__fini_array_start = .)
+ *(SORT_BY_NAME(.fini_array.*))
+ *(.fini_array*)
+                [!provide]                PROVIDE (__fini_array_end = .)
+                0x080002a0                _sidata = LOADADDR (.data)
+
+.data           0x20000000        0x0 load address 0x080002a0
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _sdata = .
+ *(.data)
+ .data          0x20000000        0x0 ./output/main.o
+ .data          0x20000000        0x0 ./output/startup_stm32f103xb.o
+ *(.data*)
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _edata = .
+
+.igot.plt       0x20000000        0x0 load address 0x080002a0
+ .igot.plt      0x20000000        0x0 ./output/main.o
+                0x20000000                . = ALIGN (0x4)
+
+.bss            0x20000000        0x0 load address 0x080002a0
+                0x20000000                _sbss = .
+                0x20000000                __bss_start__ = _sbss
+ *(.bss)
+ .bss           0x20000000        0x0 ./output/main.o
+ .bss           0x20000000        0x0 ./output/startup_stm32f103xb.o
+ *(.bss*)
+ *(COMMON)
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _ebss = .
+                0x20000000                __bss_end__ = _ebss
+
+._user_heap_stack
+                0x20000000      0x600 load address 0x080002a0
+                0x20000000                . = ALIGN (0x8)
+                [!provide]                PROVIDE (end = .)
+                [!provide]                PROVIDE (_end = .)
+                0x20000200                . = (. + _Min_Heap_Size)
+ *fill*         0x20000000      0x200 
+                0x20000600                . = (. + _Min_Stack_Size)
+ *fill*         0x20000200      0x400 
+                0x20000600                . = ALIGN (0x8)
+
+/DISCARD/
+ libc_nano.a(*)
+ libm.a(*)
+ libgcc.a(*)
+
+.ARM.attributes
+                0x00000000       0x2b
+ *(.ARM.attributes)
+ .ARM.attributes
+                0x00000000       0x2d ./output/main.o
+ .ARM.attributes
+                0x0000002d       0x21 ./output/startup_stm32f103xb.o
+LOAD ./output/main.o
+LOAD ./output/startup_stm32f103xb.o
+LOAD D:/toolbox/GNUArmEmbeddedToolchain/2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a
+LOAD D:/toolbox/GNUArmEmbeddedToolchain/2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp\libnosys.a
+LOAD D:/toolbox/GNUArmEmbeddedToolchain/2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp\libgcc.a
+OUTPUT(./output/gpio.elf elf32-littlearm)
+LOAD linker stubs
+LOAD D:/toolbox/GNUArmEmbeddedToolchain/2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a
+LOAD D:/toolbox/GNUArmEmbeddedToolchain/2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp\libm.a
+LOAD D:/toolbox/GNUArmEmbeddedToolchain/2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp\libgcc.a
+
+.debug_info     0x00000000      0x18c
+ .debug_info    0x00000000      0x18c ./output/main.o
+
+.debug_abbrev   0x00000000       0xcd
+ .debug_abbrev  0x00000000       0xcd ./output/main.o
+
+.debug_aranges  0x00000000       0x20
+ .debug_aranges
+                0x00000000       0x20 ./output/main.o
+
+.debug_line     0x00000000       0xfd
+ .debug_line    0x00000000       0xfd ./output/main.o
+
+.debug_str      0x00000000      0x14c
+ .debug_str     0x00000000      0x14c ./output/main.o
+
+.comment        0x00000000       0x4d
+ .comment       0x00000000       0x4d ./output/main.o
+                                 0x4e (size before relaxing)
+
+.debug_frame    0x00000000      0x184
+ .debug_frame   0x00000000      0x184 ./output/main.o
